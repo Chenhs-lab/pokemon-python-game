@@ -1,0 +1,32 @@
+name: Deploy Pokemon Game to Web
+on:
+  push:
+    branches:
+      - main  # 當你推送程式碼到 main 分支時觸發
+
+jobs:
+  build-n-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Pygbag
+        run: |
+          python -m pip install pygbag
+
+      - name: Build Web Version
+        run: |
+          # --no_title 代表不顯示預設的 pygbag 標題列
+          python -m pygbag --build --no_title main.py
+
+      - name: Upload to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build/web  # pygbag 打包後的資料夾
+          branch: gh-pages   # 自動將網頁檔案推送到這個分支
