@@ -2,11 +2,14 @@ name: Deploy Pokemon Game to Web
 on:
   push:
     branches:
-      - main  # 當你推送程式碼到 main 分支時觸發
+      - main
 
 jobs:
   build-n-deploy:
     runs-on: ubuntu-latest
+    # 這裡加入權限設定，確保 Actions 可以建立 gh-pages 分支
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,11 +25,11 @@ jobs:
 
       - name: Build Web Version
         run: |
-          # --no_title 代表不顯示預設的 pygbag 標題列
-          python -m pygbag --build --no_title main.py
+          # 修正點：移除 --no_title 參數
+          python -m pygbag --build main.py
 
       - name: Upload to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: build/web  # pygbag 打包後的資料夾
-          branch: gh-pages   # 自動將網頁檔案推送到這個分支
+          folder: build/web
+          branch: gh-pages
