@@ -23,9 +23,9 @@ GRASS_PAD = (100, 200, 100)
 GRASS_BORDER = (60, 140, 60)
 
 try:
-    # 網頁版建議使用預設字體，避免字體檔案缺失
-    FONT = pygame.font.SysFont("Arial", 20)
-    MSG_FONT = pygame.font.SysFont("Arial", 24)
+    # 網頁版最通用的中文字體設定
+    FONT = pygame.font.SysFont("Arial, sans-serif, Microsoft JhengHei", 20)
+    MSG_FONT = pygame.font.SysFont("Arial, sans-serif, Microsoft JhengHei", 24)
 except:
     FONT = pygame.font.SysFont(None, 24)
     MSG_FONT = pygame.font.SysFont(None, 28)
