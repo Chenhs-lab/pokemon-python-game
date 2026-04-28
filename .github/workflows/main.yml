@@ -19,13 +19,14 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Pygbag
+- name: Install Pygbag
         run: |
-          python -m pip install pygbag
+          # 指定安裝 0.8.4 版，這個版本在 GitHub Pages 上非常穩定
+          python -m pip install pygbag==0.8.4 
 
       - name: Build Web Version
         run: |
-          # 修正點：移除 --no_title 參數
+          # 0.8.4 版的打包指令稍微不同，請用這行
           python -m pygbag --build main.py
 
       - name: Upload to GitHub Pages
