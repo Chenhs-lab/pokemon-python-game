@@ -7,7 +7,6 @@ on:
 jobs:
   build-n-deploy:
     runs-on: ubuntu-latest
-    # 這裡加入權限設定，確保 Actions 可以建立 gh-pages 分支
     permissions:
       contents: write
     steps:
@@ -19,15 +18,14 @@ jobs:
         with:
           python-version: '3.11'
 
-- name: Install Pygbag
+      - name: Install Pygbag
         run: |
-          # 指定安裝 0.8.4 版，這個版本在 GitHub Pages 上非常穩定
           python -m pip install pygbag==0.8.4 
 
       - name: Build Web Version
         run: |
-          # 0.8.4 版的打包指令稍微不同，請用這行
-          python -m pygbag --build main.py
+          # 加上 --archive 確保所有圖片檔案都被包進網頁包中
+          python -m pygbag --build --archive main.py
 
       - name: Upload to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
